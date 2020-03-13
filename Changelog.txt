@@ -1,0 +1,5 @@
+VisualCube V0.6.0 by Conrad Rider
+V0.6.1 updated by Ruimin Yan
+
+Customize stage: 
+Add stage: fb1,fb2, sb1, sb2, fb, sb
