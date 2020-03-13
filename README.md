@@ -1,3 +1,6 @@
+# 在原版的基础上经过了一些修改，具体日志见
+[修改记录](https://github.com/kirahan/visualcube/blob/master/Changelog.md)
+欢迎提交issue
 # VisualCube
 Generate custom Rubik's cube visualisations from your browser address bar. 
 
