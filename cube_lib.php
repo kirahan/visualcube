@@ -1254,7 +1254,6 @@
 				: " $upper".strtolower($factors[0]).'\' '.$lower.strtolower($factors[0]);
 			},$r);
 		}
-		// echo $r;
 
 
 		// case: twist just one single middle layer for nxnxn n>3 
@@ -1294,24 +1293,6 @@
 				}
 				return $newr;
 			},$r);
-			// $rbuffer = preg_split('/\(.+?\)[2-9]/', $r);
-			// // var_dump($rbuffer);
-			// $rcontent = $matches[1];
-			// $rnumber = $matches[2];
-			// $contentlength = count($matches[1]);
-			// $newr = '';
-			// for($i =0;$i<$contentlength;$i++){
-			// 	$newr = $newr.$rbuffer[$i];					
-			// 	for($j =0;$j<$rnumber[$i];$j++){
-			// 		$newr =  $newr.substr($rcontent[$i],1,-1);
-			// 	}
-			// }
-			// if($contentlength<count($rbuffer)){
-			// 	$newr =  $newr.end($rbuffer );
-			// }
-			// $r = $newr;
-			// echo '<br>';
-			// echo $r;
 		}
 		// Fix wide notation
 		if(preg_match('/[w]/', $r)){

@@ -47,7 +47,18 @@
 	* Wider range of stage masks, with the ability to rotate them
 	* Style variables configurable via cookies
 
-
+	2020.3.13 BY KIRAHAN
+	CHANGES:   
+	1.适配个人服务器
+	2.修改了view为trans时候，白色底面显示的bug
+	3.fc、sch、fd可以使用数字代表参数重复,方便快速涂色
+	`&fc=y10o20b30` 	`&sch=y2o2b2` 
+	4.alg 和 case支持 括号表示重复
+	`alg=(RUR'U')5` 
+	5. alg 和 case 对高阶魔方的支持 中间单层 如 4R 4U
+	`&alg= 4R 5U` 
+	6. alg 和 case 对高阶魔方的支持 中间多层 如 3-4r 2-5u' 2-4f2
+	`&alg=3-4r 2-5u'` 	`&alg=2-4f2` 
 */
 
 	// Import configuration values
@@ -237,31 +248,7 @@
 					}
 					return $new;
 				},$sd);
-				// $sdbuffer = preg_split('/[2-6]/', $sd);
-				
-				// var_dump($sdbuffer);
-				// echo "<br>";
-				// var_dump($matches);
-				// echo '<br>';
-				// $sdcontent = $matches[1];
-				// $sdnumber = $matches[2];
-				// $contentlength = count($matches[1]);
-				// $newsd = '';
-				// for($i =0;$i<$contentlength;$i++){
-				// 	$newsd = $newsd.substr($sdbuffer[$i],0,-1);					
-				// 	for($j =0;$j<$sdnumber[$i];$j++){
-				// 		$newsd =  $newsd.$sdcontent[$i];
-				// 	}
-				// }
-				// if($contentlength<count($sdbuffer)){
-				// 	$newsd =  $newsd.end($sdbuffer );
-				// }
-				// $sd = $newsd;
-			
-				// for($i = 0; $i < 6; $i++){
-				// 	$scheme[$i] = $ABBR_COL[$sd[$i]];
-				// 	$schcode[$i] = $sd[$i];
-				// }
+
 			}
 
 			if(preg_match('/^[ndlswyrogbpmt]{6}$/', $sd)){
@@ -363,32 +350,6 @@
 				}
 				return $new;
 			},$uf);
-
-			// $ufbuffer = preg_split('/[1-9][0-9]*/', $uf);
-			
-			// // var_dump($ufbuffer);
-			// // echo "<br>";
-			// // var_dump($matches);
-			// // echo '<br>';
-			// $ufcontent = $matches[1];
-			// $ufnumber = $matches[2];
-			// $contentlength = count($matches[1]);
-			// $newuf = '';
-			// for($i =0;$i<$contentlength;$i++){
-			// 	$newuf = $newuf.substr($ufbuffer[$i],0,-1);					
-			// 	for($j =0;$j<$ufnumber[$i];$j++){
-			// 		$newuf =  $newuf.$ufcontent[$i];
-			// 	}
-			// }
-			// if($contentlength<count($ufbuffer)){
-			// 	$newuf =  $newuf.end($ufbuffer );
-			// }
-			// $uf = $newuf;
-		
-			// for($i = 0; $i < 6; $i++){
-			// 	$scheme[$i] = $ABBR_COL[$uf[$i]];
-			// 	$schcode[$i] = $uf[$i];
-			// }
 		}
 		
 		if(preg_match('/^[ndlswyrobgmpt]+$/', $uf)){
@@ -421,32 +382,6 @@
 					}
 					return $new;
 				},$uf);
-
-				// $ufbuffer = preg_split('/[1-9][0-9]*/', $uf);
-				
-				// var_dump($ufbuffer);
-				// echo "<br>";
-				// var_dump($matches);
-				// echo '<br>';
-				// $ufcontent = $matches[1];
-				// $ufnumber = $matches[2];
-				// $contentlength = count($matches[1]);
-				// $newuf = '';
-				// for($i =0;$i<$contentlength;$i++){
-				// 	$newuf = $newuf.substr($ufbuffer[$i],0,-1);					
-				// 	for($j =0;$j<$ufnumber[$i];$j++){
-				// 		$newuf =  $newuf.$ufcontent[$i];
-				// 	}
-				// }
-				// if($contentlength<count($ufbuffer)){
-				// 	$newuf =  $newuf.end($ufbuffer );
-				// }
-				// $uf = $newuf;
-			
-				// for($i = 0; $i < 6; $i++){
-				// 	$scheme[$i] = $ABBR_COL[$uf[$i]];
-				// 	$schcode[$i] = $uf[$i];
-				// }
 			}
 		
 		if(preg_match('/^[udlrfbnot]+$/', $uf)){
@@ -661,6 +596,8 @@
 		$t = Array(-$dim/2, -$dim/2, -$dim/2);
 		// Translation vector to move the cube away from viewer
 		$zpos = Array(0, 0, $dist);
+
+
 		// Rotation vectors to track visibility of each face
 		$rv = Array(Array(0, -1, 0), Array(1, 0, 0), Array(0, 0, -1), Array(0, 1, 0), Array(-1, 0, 0), Array(0, 0, 1));
 		for($fc = 0; $fc < 6; $fc++){
@@ -697,7 +634,10 @@
 		$ro = Array(0, 1, 2, 3, 4, 5);
 		for($i = 0; $i < 5; $i++){ for($j = 0; $j < 5; $j++){
 			if($rv[$ro[$j]][2] < $rv[$ro[$j+1]][2]){
-				$t = $ro[$j]; $ro[$j] = $ro[$j+1]; $ro[$j+1] = $t; }
+				$t = $ro[$j]; 
+				$ro[$j] = $ro[$j+1]; 
+				$ro[$j+1] = $t; 
+			}
 		}}
 
 		// Cube diagram SVG XML
@@ -711,27 +651,42 @@
 
 	// Draw background
 	if($bg) $cube .= "\t<rect fill='#$bg' x='$ox' y='$oy' width='$vw' height='$vh'/>\n";
-		// modify by kira 2020.3.10
+		// modified by kira 2020.3.10
 		// fix bug when set view as transparent
 		// bug description: view=trans bottom layer's cross can't display, hidden by the stroke layer
 		// fix by adding an if-else condition
+		// modified by Ruimin Yan 2020.3.10
+		// switch order of outline for each background face and polygon for each background facelet (transparency only)
 		if($view == 'trans'){
+
 				// Transparancy background rendering
 			if($co < 100){
 				// Create polygon for each background facelet (transparency only)
-			$cube .= "\t<g style='opacity:".($fo/100).";stroke-opacity:0.5;stroke-width:$sw;stroke-linejoin:round'>\n";
-				// this two layers are Back and Left Layer
-				$cube .= facelet_svg($ro[0]);
-				$cube .= facelet_svg($ro[2]);
-			
-			$cube .= "\t</g>\n";
 
 				// Create outline for each background face (transparency only)
 				$cube .= "\t<g style='stroke-width:0.1;stroke-linejoin:round;opacity:".($co/100)."'>\n";
 				for($ri = 0; $ri < 3; $ri++)
 					$cube .= outline_svg($ro[$ri]);
 				$cube .= "\t</g>\n";
+
+
+				$cube .= "\t<g style='opacity:".($fo/100).";stroke-opacity:0.5;stroke-width:$sw;stroke-linejoin:round'>\n";
+					// this two layers are Back and Left Layer
+					for($ri = 0; $ri < 3; $ri++){
+						$cube .= facelet_svg($ro[$ri]);
+					}
+				
+			
+			$cube .= "\t</g>\n";
+
+				
 			}
+
+			// Create polygon for each background facelet (transparency only)
+			// this layer is Bottom Layer
+			$cube .= "\t<g style='opacity:".($fo/100).";stroke-opacity:0.5;stroke-width:$sw;stroke-linejoin:round'>\n";
+			$cube .= facelet_svg(3);
+			$cube .= "\t</g>\n";
 
 			// Create outline for each visible face
 			$cube .= "\t<g style='stroke-width:0.1;stroke-linejoin:round;opacity:".($co/100)."'>\n";
@@ -739,12 +694,6 @@
 				if(face_visible($ro[$ri], $rv) || $co < 100)
 					$cube .= outline_svg($ro[$ri]);
 			}
-			$cube .= "\t</g>\n";
-
-			// Create polygon for each background facelet (transparency only)
-			// this layer is Bottom Layer
-			$cube .= "\t<g style='opacity:".($fo/100).";stroke-opacity:0.5;stroke-width:$sw;stroke-linejoin:round'>\n";
-			$cube .= facelet_svg($ro[1]);
 			$cube .= "\t</g>\n";
 			
 			// Create polygon for each visible facelet
