@@ -227,26 +227,36 @@
 			
 			if(preg_match_all('/([ndlswyrogbpmt])([2-6])/', $sd, $matches)){
 
-				$sdbuffer = preg_split('/[2-6]/', $sd);
+
+				$sd = preg_replace_callback('/([ndlswyrobgmpt])([1-9][0-9]*)/',function($matches){
+					$subalgs = $matches[1];
+					$repeattimers = $matches[2];
+					$new = '';
+					for($i =0;$i<$repeattimers;$i++){
+						$new =  $new.$subalgs;
+					}
+					return $new;
+				},$sd);
+				// $sdbuffer = preg_split('/[2-6]/', $sd);
 				
 				// var_dump($sdbuffer);
 				// echo "<br>";
 				// var_dump($matches);
 				// echo '<br>';
-				$sdcontent = $matches[1];
-				$sdnumber = $matches[2];
-				$contentlength = count($matches[1]);
-				$newsd = '';
-				for($i =0;$i<$contentlength;$i++){
-					$newsd = $newsd.substr($sdbuffer[$i],0,-1);					
-					for($j =0;$j<$sdnumber[$i];$j++){
-						$newsd =  $newsd.$sdcontent[$i];
-					}
-				}
-				if($contentlength<count($sdbuffer)){
-					$newsd =  $newsd.end($sdbuffer );
-				}
-				$sd = $newsd;
+				// $sdcontent = $matches[1];
+				// $sdnumber = $matches[2];
+				// $contentlength = count($matches[1]);
+				// $newsd = '';
+				// for($i =0;$i<$contentlength;$i++){
+				// 	$newsd = $newsd.substr($sdbuffer[$i],0,-1);					
+				// 	for($j =0;$j<$sdnumber[$i];$j++){
+				// 		$newsd =  $newsd.$sdcontent[$i];
+				// 	}
+				// }
+				// if($contentlength<count($sdbuffer)){
+				// 	$newsd =  $newsd.end($sdbuffer );
+				// }
+				// $sd = $newsd;
 			
 				// for($i = 0; $i < 6; $i++){
 				// 	$scheme[$i] = $ABBR_COL[$sd[$i]];
@@ -344,26 +354,36 @@
 		
 		if(preg_match_all('/([ndlswyrobgmpt])([1-9][0-9]*)/', $uf, $matches)){
 
-			$ufbuffer = preg_split('/[1-9][0-9]*/', $uf);
-			
-			// var_dump($ufbuffer);
-			// echo "<br>";
-			// var_dump($matches);
-			// echo '<br>';
-			$ufcontent = $matches[1];
-			$ufnumber = $matches[2];
-			$contentlength = count($matches[1]);
-			$newuf = '';
-			for($i =0;$i<$contentlength;$i++){
-				$newuf = $newuf.substr($ufbuffer[$i],0,-1);					
-				for($j =0;$j<$ufnumber[$i];$j++){
-					$newuf =  $newuf.$ufcontent[$i];
+			$uf = preg_replace_callback('/([ndlswyrobgmpt])([1-9][0-9]*)/',function($matches){
+				$subalgs = $matches[1];
+				$repeattimers = $matches[2];
+				$new = '';
+				for($i =0;$i<$repeattimers;$i++){
+					$new =  $new.$subalgs;
 				}
-			}
-			if($contentlength<count($ufbuffer)){
-				$newuf =  $newuf.end($ufbuffer );
-			}
-			$uf = $newuf;
+				return $new;
+			},$uf);
+
+			// $ufbuffer = preg_split('/[1-9][0-9]*/', $uf);
+			
+			// // var_dump($ufbuffer);
+			// // echo "<br>";
+			// // var_dump($matches);
+			// // echo '<br>';
+			// $ufcontent = $matches[1];
+			// $ufnumber = $matches[2];
+			// $contentlength = count($matches[1]);
+			// $newuf = '';
+			// for($i =0;$i<$contentlength;$i++){
+			// 	$newuf = $newuf.substr($ufbuffer[$i],0,-1);					
+			// 	for($j =0;$j<$ufnumber[$i];$j++){
+			// 		$newuf =  $newuf.$ufcontent[$i];
+			// 	}
+			// }
+			// if($contentlength<count($ufbuffer)){
+			// 	$newuf =  $newuf.end($ufbuffer );
+			// }
+			// $uf = $newuf;
 		
 			// for($i = 0; $i < 6; $i++){
 			// 	$scheme[$i] = $ABBR_COL[$uf[$i]];
@@ -391,26 +411,37 @@
 
 			if(preg_match_all('/([ndlswyrobgmp])([1-9][0-9]*)/', $uf, $matches)){
 
-				$ufbuffer = preg_split('/[1-9][0-9]*/', $uf);
+
+				$uf = preg_replace_callback('/([ndlswyrobgmpt])([1-9][0-9]*)/',function($matches){
+					$subalgs = $matches[1];
+					$repeattimers = $matches[2];
+					$new = '';
+					for($i =0;$i<$repeattimers;$i++){
+						$new =  $new.$subalgs;
+					}
+					return $new;
+				},$uf);
+
+				// $ufbuffer = preg_split('/[1-9][0-9]*/', $uf);
 				
 				// var_dump($ufbuffer);
 				// echo "<br>";
 				// var_dump($matches);
 				// echo '<br>';
-				$ufcontent = $matches[1];
-				$ufnumber = $matches[2];
-				$contentlength = count($matches[1]);
-				$newuf = '';
-				for($i =0;$i<$contentlength;$i++){
-					$newuf = $newuf.substr($ufbuffer[$i],0,-1);					
-					for($j =0;$j<$ufnumber[$i];$j++){
-						$newuf =  $newuf.$ufcontent[$i];
-					}
-				}
-				if($contentlength<count($ufbuffer)){
-					$newuf =  $newuf.end($ufbuffer );
-				}
-				$uf = $newuf;
+				// $ufcontent = $matches[1];
+				// $ufnumber = $matches[2];
+				// $contentlength = count($matches[1]);
+				// $newuf = '';
+				// for($i =0;$i<$contentlength;$i++){
+				// 	$newuf = $newuf.substr($ufbuffer[$i],0,-1);					
+				// 	for($j =0;$j<$ufnumber[$i];$j++){
+				// 		$newuf =  $newuf.$ufcontent[$i];
+				// 	}
+				// }
+				// if($contentlength<count($ufbuffer)){
+				// 	$newuf =  $newuf.end($ufbuffer );
+				// }
+				// $uf = $newuf;
 			
 				// for($i = 0; $i < 6; $i++){
 				// 	$scheme[$i] = $ABBR_COL[$uf[$i]];
@@ -1105,8 +1136,8 @@
 			case 'svg' : $mime = 'svg+xml'; break;
 			case 'ico' : $mime = 'vnd.microsoft.icon'; break;
 		}
-		// header("Content-type: image/$mime");
-		// echo $img;
+		header("Content-type: image/$mime");
+		echo $img;
 	}
 
 

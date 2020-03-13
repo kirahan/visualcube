@@ -1237,37 +1237,79 @@
 		$r = preg_replace('/%27/', "'", $alg);
 		$r = preg_replace('/%20/', " ", $r);
 		// Remove characters not allowed in an alg
-		$r = preg_replace('/[^\(\)UDLRFBudlrfbMESxyzw\'`234567890 ]/', '', $r);
+		$r = preg_replace('/[^-\(\)UDLRFBudlrfbMESxyzw\'`234567890 ]/', '', $r);
 		$r = preg_replace('/[`]/', "'", $r); // Replace ` with a '
 		$r = preg_replace('/2\'|\'2/', "2", $r); // Replace 2' or '2 with a 2
 		
+		// case: twist just several middle layers for nxnxn n>3 
+		// 2-4r equal to 4r + 2r' 
+		// 2-4r2 equal to 4r2 + 2r'2 
+		if(preg_match_all('/([2-9])-([2-9])([udlrfb][2-3]{0,1}\'{0,1})/',$r,$matches)){
+			$r = preg_replace_callback('/([2-9])-([2-9])([udlrfb][2-3]{0,1}\'{0,1})/',function($matches){
+				$lower = $matches[1];
+				$upper = $matches[2];
+				$factors = $matches[3];
+				return strstr($factors,'\'')==""
+				? " $upper".strtolower($factors).' '.$lower.strtolower($factors).'\''
+				: " $upper".strtolower($factors[0]).'\' '.$lower.strtolower($factors[0]);
+			},$r);
+		}
+		// echo $r;
+
+
 		// case: twist just one single middle layer for nxnxn n>3 
 		// 2R equal to 2r + R' | 2R' equal to 2r' + R
 		// 4R equal to 4r + 3r' | 4R' equal to 4r' + 3r 
-		if(preg_match_all('/\s([2-9])([UDLRFB]\'{0,1})/',$r,$matches)){
-			preg_replace_callback('/\s([2-9])([UDLRFB]\'{0,1})/',function($matches){
-				var_dump($matches); 
+		// 2R2 equal to 2r2 + R2' | 2R2' equal to 2r' + R2 
+		if(preg_match_all('/\s([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',$r,$matches)){
+			$r = preg_replace_callback('/\s([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',function($matches){
+				$layers = $matches[1];
+				$factors = $matches[2];
+				// echo $factors;
+				if($layers==2){
+					// case include ' and case not include '
+					return strstr($factors,'\'')==""
+					? ' 2'.strtolower($factors).' '.strtoupper($factors).'\''
+					: ' 2'.strtolower($factors[0]).'\' '.strtoupper($factors[0]);
+				}else{
+					return strstr($factors,'\'')==""
+					? " $layers".strtolower($factors).' '.($layers-1).strtolower($factors).'\''
+					: " $layers".strtolower($factors[0]).'\' '.($layers-1).strtolower($factors[0]);
+				}
 			},$r);
 		}
+		// echo $r;
+
+		// case subalg repeat n times
+		// (RUR'U')2 = RUR'U'RUR'U'
 		if(preg_match_all('/(\(.+?\))([2-9])/', $r, $matches)){
-			// var_dump($matches);
-			// echo "<br>";
-			$rbuffer = preg_split('/\(.+?\)[2-9]/', $r);
-			// var_dump($rbuffer);
-			$rcontent = $matches[1];
-			$rnumber = $matches[2];
-			$contentlength = count($matches[1]);
-			$newr = '';
-			for($i =0;$i<$contentlength;$i++){
-				$newr = $newr.$rbuffer[$i];					
-				for($j =0;$j<$rnumber[$i];$j++){
-					$newr =  $newr.substr($rcontent[$i],1,-1);
+
+
+			$r = preg_replace_callback('/(\(.+?\))([2-9])/',function($matches){
+				$subalgs = $matches[1];
+				$repeattimers = $matches[2];
+				$newr = '';
+				for($i =0;$i<$repeattimers;$i++){
+					$newr =  $newr.substr($subalgs,1,-1);
 				}
-			}
-			if($contentlength<count($rbuffer)){
-				$newr =  $newr.end($rbuffer );
-			}
-			$r = $newr;
+				return $newr;
+			},$r);
+			// $rbuffer = preg_split('/\(.+?\)[2-9]/', $r);
+			// // var_dump($rbuffer);
+			// $rcontent = $matches[1];
+			// $rnumber = $matches[2];
+			// $contentlength = count($matches[1]);
+			// $newr = '';
+			// for($i =0;$i<$contentlength;$i++){
+			// 	$newr = $newr.$rbuffer[$i];					
+			// 	for($j =0;$j<$rnumber[$i];$j++){
+			// 		$newr =  $newr.substr($rcontent[$i],1,-1);
+			// 	}
+			// }
+			// if($contentlength<count($rbuffer)){
+			// 	$newr =  $newr.end($rbuffer );
+			// }
+			// $r = $newr;
 			// echo '<br>';
 			// echo $r;
 		}
