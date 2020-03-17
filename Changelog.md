@@ -33,8 +33,8 @@
 ![](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg&alg=2-4f2)
 
 ## 7. alg 和 case 对高阶魔方的支持 内层转动 m e s
-`&alg=m e s` [点我查看效果](![](http://imagebed.solarsunrise.cn/blog/img/20200317160754.png))  
-![](![](http://imagebed.solarsunrise.cn/blog/img/20200317160754.png))
+`&alg=m e s` [点我查看效果](http://imagebed.solarsunrise.cn/blog/img/20200317160754.png)  
+![](http://imagebed.solarsunrise.cn/blog/img/20200317160754.png)
 
-`&alg=m2 e2 s2` [点我查看效果](![](http://imagebed.solarsunrise.cn/blog/img/20200317161653.png))  
-![](![](http://imagebed.solarsunrise.cn/blog/img/20200317161653.png))
+`&alg=m2 e2 s2` [点我查看效果](http://imagebed.solarsunrise.cn/blog/img/20200317161653.png)  
+![](http://imagebed.solarsunrise.cn/blog/img/20200317161653.png)

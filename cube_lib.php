@@ -1294,9 +1294,16 @@
 				$lower = $matches[1];
 				$upper = $matches[2];
 				$factors = $matches[3];
-				return strstr($factors,'\'')==""
-				? " $upper".strtolower($factors).' '.$lower.strtolower($factors).'\''
-				: " $upper".strtolower($factors[0]).'\' '.$lower.strtolower($factors[0]);
+				if($lower==2){
+					return strstr($factors,'\'')==""
+					? " $upper".strtolower($factors).' '.strtoupper($factors).'\''
+					: " $upper".strtolower($factors[0]).'\' '.strtoupper($factors[0]);
+				}else{
+					return strstr($factors,'\'')==""
+					? " $upper".strtolower($factors).' '.($lower-1).strtolower($factors).'\''
+					: " $upper".strtolower($factors[0]).'\' '.($lower-1).strtolower($factors[0]);
+				}
+				
 			},$r);
 		}
 
