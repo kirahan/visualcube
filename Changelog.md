@@ -21,7 +21,7 @@
 ![](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=3&alg=(R%20UR%27U%27)5)
 
 ## 5. alg 和 case 对高阶魔方的支持 中间单层 如 4R 4U
-`&alg= 4R 5U` 4R前面空格不能省略 [点我查看效果](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg=%204R%205U)  
+`&alg=4R 5U` [点我查看效果](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg=%204R%205U)  
 ![](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg=%204R%205U)
 
 
@@ -31,3 +31,10 @@
 
 `&alg=2-4f2` [点我查看效果](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg&alg=2-4f2)  
 ![](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg&alg=2-4f2)
+
+## 7. alg 和 case 对高阶魔方的支持 内层转动 m e s
+`&alg=m e s` [点我查看效果](![](http://imagebed.solarsunrise.cn/blog/img/20200317160754.png))  
+![](![](http://imagebed.solarsunrise.cn/blog/img/20200317160754.png))
+
+`&alg=m2 e2 s2` [点我查看效果](![](http://imagebed.solarsunrise.cn/blog/img/20200317161653.png))  
+![](![](http://imagebed.solarsunrise.cn/blog/img/20200317161653.png))

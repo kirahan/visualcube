@@ -1237,10 +1237,55 @@
 		$r = preg_replace('/%27/', "'", $alg);
 		$r = preg_replace('/%20/', " ", $r);
 		// Remove characters not allowed in an alg
-		$r = preg_replace('/[^-\(\)UDLRFBudlrfbMESxyzw\'`234567890 ]/', '', $r);
+		$r = preg_replace('/[^-\(\)UDLRFBudlrfbMESmesxyzw\'`234567890 ]/', '', $r);
 		$r = preg_replace('/[`]/', "'", $r); // Replace ` with a '
 		$r = preg_replace('/2\'|\'2/', "2", $r); // Replace 2' or '2 with a 2
 		
+		// case: 
+		// m e s
+		// m' e' s'
+		// m2 e2 s2
+		if(preg_match_all('/[mes]/',$r,$matches)){
+			$r = preg_replace_callback('/([mes]2{0,1}\'{0,1})/',function($matches){
+				$lower = $matches[1];
+				switch($lower)
+				{
+					case 'm\'':
+						$r = "x' R' L";
+						break; 
+					case 'm':
+						$r = "x R L'";
+						break; 
+					case 'm2':
+						$r = "x2 R2 L2'";
+						break; 
+					case 'e\'':
+						$r = "y D U'";
+						break; 
+					case 'e':
+						$r = "y' D' U";
+						break; 
+					case 'e2':
+						$r = "y2 D2 U2";
+						break;  
+					case 's\'':
+						$r = "z' F B'";
+						break; 
+					case 's':
+						$r = "z F' B";
+						break; 
+					case 's2':
+						$r = "z2 F2 B2";
+						break;  
+					default:
+						break;
+				}
+				return $r;
+			},$r);
+			
+		}
+
+
 		// case: twist just several middle layers for nxnxn n>3 
 		// 2-4r equal to 4r + 2r' 
 		// 2-4r2 equal to 4r2 + 2r'2 
@@ -1260,7 +1305,7 @@
 		// 2R equal to 2r + R' | 2R' equal to 2r' + R
 		// 4R equal to 4r + 3r' | 4R' equal to 4r' + 3r 
 		// 2R2 equal to 2r2 + R2' | 2R2' equal to 2r' + R2 
-		if(preg_match_all('/\s([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',$r,$matches)){
+		if(preg_match_all('/([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',$r,$matches)){
 			$r = preg_replace_callback('/\s([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',function($matches){
 				$layers = $matches[1];
 				$factors = $matches[2];
