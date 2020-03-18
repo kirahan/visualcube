@@ -1313,7 +1313,7 @@
 		// 4R equal to 4r + 3r' | 4R' equal to 4r' + 3r 
 		// 2R2 equal to 2r2 + R2' | 2R2' equal to 2r' + R2 
 		if(preg_match_all('/([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',$r,$matches)){
-			$r = preg_replace_callback('/\s([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',function($matches){
+			$r = preg_replace_callback('/([2-9])([UDLRFB][2-3]{0,1}\'{0,1})/',function($matches){
 				$layers = $matches[1];
 				$factors = $matches[2];
 				// echo $factors;
