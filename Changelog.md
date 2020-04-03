@@ -26,7 +26,7 @@
 
 
 ## 6. alg 和 case 对高阶魔方的支持 中间多层 如 3-4r 2-5u' 2-4f2
-`&alg=3-4r 2-5u'` [点我查看效果](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg&alg=alg=3-4r%202-5u%27)  
+`&alg=3-4r 2-5u'` [点我查看效果](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg=3-4r%202-5u%27)  
 ![](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg&alg=alg=3-4r%202-5u%27)
 
 `&alg=2-4f2` [点我查看效果](http://solarsunrise.cn/index.php?fmt=svg&size=500&pzl=7&alg&alg=2-4f2)  
